@@ -1,0 +1,4 @@
+const metrics = [{ label: 'Total Users', value: '3,420' }, { label: 'Active Listings', value: '1,284' }, { label: 'Revenue', value: '₹18.4L' }];
+export const AdminDashboardPage = () => (
+  <main className="mx-auto max-w-7xl px-6 py-12"><header className="mb-10 flex items-center justify-between"><div><p className="text-sm uppercase tracking-[0.3em] text-slate-400">Admin Control Center</p><h1 className="mt-2 text-4xl font-bold">Platform analytics & approvals</h1></div><button className="rounded-xl bg-indigo-500 px-5 py-3 font-semibold">Review pending listings</button></header><section className="grid gap-6 md:grid-cols-3">{metrics.map((metric) => <article key={metric.label} className="rounded-2xl bg-slate-900 p-6 ring-1 ring-white/10"><p className="text-sm text-slate-400">{metric.label}</p><p className="mt-4 text-4xl font-bold">{metric.value}</p></article>)}</section></main>
+);

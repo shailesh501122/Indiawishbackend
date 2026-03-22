@@ -1,0 +1,66 @@
+services:
+  - type: web
+    name: indiawish-api
+    runtime: docker
+    dockerfilePath: ./src/API/RealEstatePlatform.API/Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase:
+          name: indiawish-db
+          property: connectionString
+      - key: ConnectionStrings__Redis
+        fromService:
+          type: keyvalue
+          name: indiawish-cache
+          property: connectionString
+      - key: Jwt__Issuer
+        value: IndiaWish
+      - key: Jwt__Audience
+        value: IndiaWishClients
+      - key: Jwt__Secret
+        generateValue: true
+
+  - type: web
+    name: indiawish-web
+    runtime: static
+    rootDir: src/Web
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+
+  - type: web
+    name: indiawish-admin
+    runtime: static
+    rootDir: src/Admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        sync: false
+
+  - type: keyvalue
+    name: indiawish-cache
+    ipAllowList: []
+
+databases:
+  - name: indiawish-db
+    databaseName: indiawish
+    user: indiawish
