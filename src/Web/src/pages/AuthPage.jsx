@@ -1,0 +1,3 @@
+export const AuthPage = () => (
+  <main className="mx-auto grid min-h-screen max-w-6xl items-center px-6 py-12 lg:grid-cols-2"><section><h1 className="text-4xl font-bold">Welcome back</h1><p className="mt-4 text-slate-600">Register, verify KYC, manage subscriptions, and publish listings from your dashboard.</p></section><section className="rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-200"><div className="space-y-4"><input className="w-full rounded-xl border border-slate-200 px-4 py-3" placeholder="Email" /><input type="password" className="w-full rounded-xl border border-slate-200 px-4 py-3" placeholder="Password" /><button className="w-full rounded-xl bg-slate-900 px-4 py-3 font-semibold text-white">Login</button></div></section></main>
+);
